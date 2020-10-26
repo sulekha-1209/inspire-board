@@ -1,18 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Template</title>
+    <title>Quote Generator</title>
     <link rel="icon" type="image/png" href="https://www.google.com/s2/u/0/favicons?domain=jacinto.design
     ">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 
 </head>
-<body>
 
-    <!-- Script -->
+<body>
+    <div class="container">
+        <div class="content">
+
+
+            <div class="row clock-section">
+                <div class="clock-container" id="clock-container"></div>
+                <p style="font-size:4rem;">Your potential is unlimited.</p>
+            </div>
+
+            <div class="row quote-section">
+                <div class="quote-container" id="quote-container">
+                    <div id="quote-content" class="quote-content">
+                        <!--Quote-->
+                        <div class="quote-text">
+
+                            <span id="quote"> </span>
+
+                        </div>
+                        <!--Author-->
+                        <div class="quote-author">
+                            <span id="author"></span>
+                        </div>
+                        <!---->
+                        <div class="button-container">
+
+                            <i onclick="tweetQuote()" class="twitter-button fab fa-twitter"></i>
+                            <i onclick="getQuote()" class="generate-button fas fa-sync"></i>
+
+                        </div>                        
+                    </div>
+                    <!--Loader-->
+                    <div class="row" style="display: flex;">                                             
+                        <div class="col-md-4 col-sm-4 col-xs-4 loader" id="loader"></div>                        
+                    </div>
+                    
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <!-- Scripts -->
     <script src="script.js"></script>
 </body>
+
 </html>
