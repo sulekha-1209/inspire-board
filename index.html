@@ -14,49 +14,85 @@
 
 </head>
 
-<body>
+<body onload="getTime()">
     <div class="container">
-        <div class="content">
+        <table class="content">
 
+            <tr class="row clock-section">
+                <td valign="top">
+                   <!--Weather + bookmark stuff--> 
+                </td>
 
-            <div class="row clock-section">
-                <div class="clock-container" id="clock-container"></div>
-                <p style="font-size:4rem;">Your potential is unlimited.</p>
-            </div>
+            </tr>
+            <tr class="row clock-section">
+                <td valign="center">
+                    <div class="clock-container" id="clock-container"></div>
+                    <div style="font-size: 4.5rem;">Your potential is unlimited.</div>
+                </td>
 
-            <div class="row quote-section">
-                <div class="quote-container" id="quote-container">
-                    <div id="quote-content" class="quote-content">
-                        <!--Quote-->
-                        <div class="quote-text">
+            </tr>
 
-                            <span id="quote"> </span>
-
+            <tr class="row do-today-section">
+                <td id="task-input">
+                    <div>What is your main focus for today?</div>
+                    <input type="text" id="main-task-input" class="main-task-input"><br>
+                    <!--<button id="button" ></button> -->
+                </td>
+                <td class="task" id="task-show">
+                    <div>
+                        <b>TODAY</b>
+                        <div class="row" id='mainTask'>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <input id="taskCheckbox" onclick="taskDone()" type="checkbox">
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" id='mainTaskText'></div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <i style="font-size:2rem;" onclick="removeTask()" class="far fa-times-circle"></i>
+                            </div>
                         </div>
-                        <!--Author-->
-                        <div class="quote-author">
-                            <span id="author"></span>
+                    </div>
+                </td>
+
+            </tr>
+
+            <tr class="row quote-section">
+                <td valign="bottom">
+                    <div class="quote-container" id="quote-container">
+                        <div id="quote-content" class="quote-content">
+                            <!--Quote-->
+                            <div class="quote-text">
+
+                                <span id="quote"> </span>
+
+                            </div>
+                            <!--Author-->
+                            <div class="quote-author">
+                                <span id="author"></span>
+                            </div>
+                            <!---->
                         </div>
-                        <!---->
-                        <div class="button-container">
+                        <div id="button-container" class="button-container">
 
                             <i onclick="tweetQuote()" class="twitter-button fab fa-twitter"></i>
                             <i onclick="getQuote()" class="generate-button fas fa-sync"></i>
 
-                        </div>                        
+                        </div>
+                        <!--Loader-->
+                        <div class="row" style="display: flex;">
+                            <div class="col-md-4 col-sm-4 col-xs-4 loader" id="loader"></div>
+                        </div>
+
                     </div>
-                    <!--Loader-->
-                    <div class="row" style="display: flex;">                                             
-                        <div class="col-md-4 col-sm-4 col-xs-4 loader" id="loader"></div>                        
-                    </div>
-                    
-                </div>
+                </td>
 
 
-            </div>
+
+            </tr>
 
 
-        </div>
+
+
+        </table>
 
 
     </div>
