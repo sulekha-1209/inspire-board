@@ -39,16 +39,19 @@
                     <!--<button id="button" ></button> -->
                 </td>
                 <td class="task" id="task-show">
-                    <div>
+                    <div onMouseOver="showTaskOptions()" onMouseOut="hideTaskOptions()">
                         <b>TODAY</b>
-                        <div class="row" id='mainTask'>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                <input id="taskCheckbox" onclick="taskDone()" type="checkbox">
+                        <div class="row" style="display: flex;" id='mainTask'>
+                            <div style="margin: auto; display: flex;">
+                                <div class="padding-small taskCheckboxDiv" id="taskCheckboxDiv">
+                                    <input id="taskCheckbox" class="taskCheckbox" onclick="taskDone()" type="checkbox">
+                                </div>
+                                <div class="padding-small mainTaskText" id='mainTaskText'></div>
+                                <div class="padding-small removeTaskDiv" id="removeTaskDiv">
+                                    <i style="font-size:2rem;" onclick="removeTask()" class="far fa-times-circle removeTaskIcon"></i>
+                                </div>
                             </div>
-                            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7" id='mainTaskText'></div>
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                <i style="font-size:2rem;" onclick="removeTask()" class="far fa-times-circle"></i>
-                            </div>
+                           
                         </div>
                     </div>
                 </td>

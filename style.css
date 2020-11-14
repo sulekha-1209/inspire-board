@@ -34,6 +34,9 @@ body {
 
 }
 
+.padding-small {
+    padding: 1rem;
+}
 
 
 /* Clock */
@@ -54,7 +57,7 @@ body {
 .do-today-section {
     font-size: 3rem;
     margin-top: 20px;
-    padding-bottom: 6rem;
+    /*padding-bottom: 6rem;*/
 }
 
 .main-task-input { 
@@ -68,10 +71,39 @@ body {
 }
 
 .task { 
+    width: 100%;
     display: none;
-    padding-top:3rem;
+    padding-top:1.5rem;
     font-size:2.5rem
 }
+
+
+.taskCheckboxDiv {
+    display: none;
+}
+
+.taskCheckbox{
+    opacity: 70%;
+}
+.taskCheckbox:hover {
+    opacity: 100%;
+}
+
+.removeTaskIcon{
+    opacity: 70%;
+}
+
+.removeTaskIcon:hover {
+    opacity: 100%;
+}
+
+.removeTaskDiv {
+    display: none;
+}
+
+/* .mainTaskText:hover + .removeTaskDiv, .removeTaskDiv:hover{
+    display: inline-block;
+} */
 
 
 /* Quote */

@@ -109,6 +109,18 @@
         document.getElementById('task-show').style.display = 'none';
     }
 
+    function showTaskOptions()
+    {
+        document.getElementById('removeTaskDiv').style.display = 'inline-block';
+        document.getElementById('taskCheckboxDiv').style.display = 'inline-block';
+    }
+
+    function hideTaskOptions() 
+    {
+        document.getElementById('removeTaskDiv').style.display = 'none';
+        document.getElementById('taskCheckboxDiv').style.display = 'none';
+    }
+
 
     // On Load
     getTime();
