@@ -4,7 +4,8 @@
     const authorText = document.getElementById('author')
     const loader = document.getElementById('loader');
     const clock = document.getElementById('clock-container');
-
+    const mainTaskInp= document.getElementById('main-task-input');
+    let mainTask = '';
 
     function getTime() {
         var today = new Date();
@@ -17,6 +18,7 @@
         }
        
         clock.innerText = h + ":" + m ;
+        var t = setTimeout(getTime, 500);
     }
 
     
@@ -66,7 +68,49 @@
         }
     }
 
+    function getMainTask() {      
+       
+        if(mainTask.length!=0)
+        {
+            console.log('this is the task entered' + mainTask);
+        }
+
+        mainTaskInp.addEventListener("keyup", function(event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+             // console.log(mainTaskInp.value);
+             mainTask = mainTaskInp.value;
+              // Cancel the default action, if needed
+              event.preventDefault();
+              
+              document.getElementById('task-input').style.display = 'none';
+              document.getElementById('task-show').style.display = 'inline-block';
+              document.getElementById('mainTaskText').innerText = mainTask;
+            }
+          });
+    }
+
+    function taskDone()
+    {   
+        checked = document.getElementById('taskCheckbox').checked;
+        console.log(checked);
+        if(checked) {
+            document.getElementById('mainTaskText').style.textDecoration = 'line-through';
+        } else {           
+            document.getElementById('mainTaskText').style.textDecoration = 'none';
+        }
+    }
+
+    function removeTask()
+    {
+        mainTask = '';
+        mainTaskInp.value = '';
+        document.getElementById('task-input').style.display = 'inline-block';
+        document.getElementById('task-show').style.display = 'none';
+    }
+
 
     // On Load
     getTime();
     getQuote();
+    getMainTask();
