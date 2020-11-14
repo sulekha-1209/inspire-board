@@ -5,6 +5,7 @@
     const loader = document.getElementById('loader');
     const clock = document.getElementById('clock-container');
     const mainTaskInp= document.getElementById('main-task-input');
+    const doneMessageDiv = document.getElementById('doneMessage');
     let mainTask = '';
 
     function getTime() {
@@ -94,10 +95,15 @@
     {   
         checked = document.getElementById('taskCheckbox').checked;
         console.log(checked);
+        
         if(checked) {
-            document.getElementById('mainTaskText').style.textDecoration = 'line-through';
+            document.getElementById('mainTaskText').style.textDecoration = 'line-through';            
+            doneMessageDiv.classList.add('fade');
+            setTimeout(function() { doneMessageDiv.classList.remove('fade') }, 3000)
+
         } else {           
             document.getElementById('mainTaskText').style.textDecoration = 'none';
+            doneMessageDiv.classList.remove('fade');
         }
     }
 
@@ -105,6 +111,8 @@
     {
         mainTask = '';
         mainTaskInp.value = '';
+        document.getElementById('taskCheckbox').checked = false;
+        document.getElementById('mainTaskText').style.textDecoration = 'none';
         document.getElementById('task-input').style.display = 'inline-block';
         document.getElementById('task-show').style.display = 'none';
     }
