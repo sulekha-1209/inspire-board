@@ -21,4 +21,4 @@ So I created this simple application to help me focus better.
 
 ## Installing
 
-You can directly open the index.html file on your browser to view the app. 
+You can directly open the index.html file on your browser to view the page. 
