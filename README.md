@@ -2,7 +2,7 @@
 
 ## About
 
-I love the idea of setting a single-minded goal and keep looking at it to remind yourself to get it done. I use a Chrome for that but I wanted better background images and I don't want the goal on my board to disappear until I have marked it as finished and not just have it refreshed daily.
+I love the idea of setting a single-minded goal and looking at it regularly to remind yourself to keep working towards it. I use a Chrome for that but I wanted better background images and I don't want the goal on my board to disappear until I have marked it as finished and not just have it refreshed daily.
 So I created this simple application to help me focus better. 
 
 [Live Demo](https://sulekha-1209.github.io/inspire-board/)
