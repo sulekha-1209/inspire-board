@@ -69,26 +69,43 @@
         }
     }
 
-    function getMainTask() {      
-       
-        if(mainTask.length!=0)
+    function getMainTask(){
+        mainTask = localStorage.getItem('mainTask');
+        if(mainTask && mainTask.length>0) 
         {
-            console.log('this is the task entered' + mainTask);
+            // console.log('here coz mainTask is set in local storage', mainTask);
+            showMainTask();
+            document.getElementById('mainTaskText').innerText = mainTask;
+        } else {
+            hideMainTask();
+            mainTaskInp.addEventListener("keyup", function(event) {
+                // Number 13 is the "Enter" key on the keyboard
+                if (event.keyCode === 13) {
+                 // console.log(mainTaskInp.value);
+                 mainTask = mainTaskInp.value;
+                 localStorage.setItem('mainTask',mainTaskInp.value);
+                  // Cancel the default action, if needed
+                  event.preventDefault();
+                  showMainTask();
+                  document.getElementById('mainTaskText').innerText = mainTask;
+                }
+              });
         }
+    }
 
-        mainTaskInp.addEventListener("keyup", function(event) {
-            // Number 13 is the "Enter" key on the keyboard
-            if (event.keyCode === 13) {
-             // console.log(mainTaskInp.value);
-             mainTask = mainTaskInp.value;
-              // Cancel the default action, if needed
-              event.preventDefault();
-              
-              document.getElementById('task-input').style.display = 'none';
-              document.getElementById('task-show').style.display = 'inline-block';
-              document.getElementById('mainTaskText').innerText = mainTask;
-            }
-          });
+    function showMainTask(){
+        // console.log('task input block being hidden');
+        taskDiv = document.getElementById('task-show');
+        taskDiv.style.display = 'inline-block';
+
+        taskInp = document.getElementById('task-input');
+        taskInp.style.display = 'none';
+    }
+
+    function hideMainTask() {
+        // console.log('task show block being hidden');
+        document.getElementById('task-show').style.display = 'none';
+        document.getElementById('task-input').style.display = 'inline-block';
     }
 
     function taskDone()
@@ -110,11 +127,11 @@
     function removeTask()
     {
         mainTask = '';
+        localStorage.setItem('mainTask','');
         mainTaskInp.value = '';
         document.getElementById('taskCheckbox').checked = false;
         document.getElementById('mainTaskText').style.textDecoration = 'none';
-        document.getElementById('task-input').style.display = 'inline-block';
-        document.getElementById('task-show').style.display = 'none';
+        getMainTask();
     }
 
     function showTaskOptions()
