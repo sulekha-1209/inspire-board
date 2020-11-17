@@ -43,6 +43,7 @@ body {
 /* Clock */
 
 .clock-section {
+    display: flex;
     padding-top: 20px;
 }
 
@@ -56,9 +57,14 @@ body {
 
 /* To do today section */
 .do-today-section {
+    display: flex;
     font-size: 3rem;
     margin-top: 20px;
-    /*padding-bottom: 6rem;*/
+    padding-bottom: 2rem;
+}
+
+.task-input {
+    margin: auto;
 }
 
 .main-task-input { 
@@ -72,6 +78,7 @@ body {
 }
 
 .task { 
+    margin: auto;
     width: 100%;
     display: none;
     padding-top:1.5rem;
@@ -123,6 +130,7 @@ body {
 /* Quote */
 
 .quote-section {
+    display: flex;
     margin: auto;
     width: 100%;
 }
