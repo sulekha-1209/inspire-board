@@ -16,29 +16,29 @@
 
 <body onload="getTime()">
     <div class="container">
-        <table class="content">
+        <div class="content">
 
-            <tr class="row bookmark-section">
-                <td valign="top">
-                   <!--Weather + bookmark stuff--> 
-                </td>
+            <div class="row bookmark-section">
+                <div>
+                   Weather + bookmark stuff
+                </div>
 
-            </tr>
-            <tr class="row clock-section">
-                <td valign="center" style="margin: auto;">
+            </div>
+            <div class="row clock-section">
+                <div style="margin: auto;">
                     <div class="clock-container" id="clock-container"></div>
                     <div style="font-size: 4.5rem;">Your potential is unlimited.</div>
-                </td>
+                </div>
 
-            </tr>
+            </div>
 
-            <tr class="row do-today-section">
-                <td id="task-input" class="task-input">
+            <div class="row do-today-section">
+                <div id="task-input" class="task-input">
                     <div>What is your main focus for today?</div>
                     <input autocomplete="off" autofill="off" type="text" id="main-task-input" class="main-task-input"><br>
                     <!--<button id="button" ></button> -->
-                </td>
-                <td class="task" id="task-show">
+                </div>
+                <div class="task" id="task-show">
                     <div onMouseOver="showTaskOptions()" onMouseOut="hideTaskOptions()">
                         <b>TODAY</b>
                         <div class="row" style="display: flex;" id='mainTask'>
@@ -56,12 +56,12 @@
                             Celebrate!
                         </div>
                     </div>
-                </td>
+                </div>
 
-            </tr>
+            </div>
 
-            <tr class="row quote-section">
-                <td valign="bottom" style="margin: auto;">
+            <div class="row quote-section">
+                <div style="margin: auto;">
                     <div class="quote-container" id="quote-container">
                         <div id="quote-content" class="quote-content">
                             <!--Quote-->
@@ -88,16 +88,16 @@
                         </div>
 
                     </div>
-                </td>
+                </div>
 
 
 
-            </tr>
+            </div>
 
 
 
 
-        </table>
+        </div>
 
 
     </div>
