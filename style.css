@@ -239,6 +239,10 @@ body {
     .clock-container {
         font-size: 13rem;
     }
+    .clock-section {
+        padding-top: 20vh;
+    }
+
 }
 
 /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
