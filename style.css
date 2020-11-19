@@ -48,7 +48,6 @@ body {
 .clock-section {
     display: flex;
     margin-top: auto;
-    padding-top: 20px;
 }
 
 .clock-container {
