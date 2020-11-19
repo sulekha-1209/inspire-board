@@ -21,4 +21,4 @@ So I created this simple responsive application to help me focus better.
 
 ## Installing
 
-You can directly open the index.html file on your browser to view the page. 
+After cloning the repo, you can open the index.html file on your browser to view the page. 
