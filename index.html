@@ -16,14 +16,25 @@
 
 <body onload="getTime()">
     <div class="container">
-        <div class="content">
-
-            <div class="row bookmark-section">
-                <div>
-                  <!--Weather + bookmark stuff--> 
-                </div>
-
+        <div class="row header-section">
+            <div class="bookmark-section" style="display: none;">
+                <div class="padding-small">Links</div>
             </div>
+            <div class="to-do-section">
+                <div id="to-do-button" class="to-do-button padding-small" onclick="toggleToDoCardDisplay()"> Todo </div>
+                <div id="to-do-card" class="to-do-card" style="display: none;">
+                    <div style="display: flex;">
+                        <input id="new-to-do-inp" type="text" placeholder="New Todo">
+                        <i class="fa fa-plus" aria-hidden="true" style="margin: auto;" onclick="newToDo()"></i>
+                    </div>
+
+                    <ul class="to-do-list" id="to-do-list">
+                        <h4>Todo</h4>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row content">
             <div class="row clock-section">
                 <div style="margin: auto;">
                     <div class="clock-container" id="clock-container"></div>
@@ -35,7 +46,8 @@
             <div class="row do-today-section">
                 <div id="task-input" class="task-input">
                     <div>What is your main focus for today?</div>
-                    <input autocomplete="off" autofill="off" type="text" id="main-task-input" class="main-task-input"><br>
+                    <input autocomplete="off" autofill="off" type="text" id="main-task-input"
+                        class="main-task-input"><br>
                     <!--<button id="button" ></button> -->
                 </div>
                 <div class="task" id="task-show">
@@ -48,9 +60,10 @@
                                 </div>
                                 <div class="padding-small mainTaskText" id='mainTaskText'></div>
                                 <div class="padding-small removeTaskDiv" id="removeTaskDiv">
-                                    <i style="font-size:2rem;" onclick="removeTask()" class="far fa-times-circle removeTaskIcon"></i>
+                                    <i style="font-size:2rem;" onclick="removeTask()"
+                                        class="far fa-times-circle removeTaskIcon"></i>
                                 </div>
-                            </div>                           
+                            </div>
                         </div>
                         <div class="row" id="doneMessage">
                             Celebrate!
