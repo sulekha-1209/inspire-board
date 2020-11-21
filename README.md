@@ -12,12 +12,13 @@ So I created this simple responsive application to help me focus better.
 
 * Beautiful backgrounds fetched using the Unsplash API ( from a collection curated by me ) 
 * Ability to set a task to focus on , which won't disappear till you remove it - using local storage of browser.
+* To-do list
 
 
 ## TBD / In Progress
 
 * Bookmarks
-* To-do list
+
 
 ## Installing
 
