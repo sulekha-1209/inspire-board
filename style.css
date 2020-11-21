@@ -346,18 +346,18 @@ ul li {
 
 /* Media queries */
 
-/* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
+/* If the screen size is 993px wide or more */
 @media screen and (min-width: 993px) {
     .clock-container {
         font-size: 13rem;
     }
     .clock-section {
-        padding-top: 20vh;
+        padding-top: 15vh;
     }
 
 }
 
-/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+/* If the screen size is 992px wide or less */
 @media screen and (max-width: 992px) {
     .content {
         height: 70vh;
@@ -377,6 +377,7 @@ ul li {
     }
 }
 
+/* If the screen size is 772px wide or less */
 @media screen and (max-width: 772px) {
     .to-do-section {
         display: none
