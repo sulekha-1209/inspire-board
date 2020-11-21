@@ -125,7 +125,7 @@ ul li {
   
   /* When clicked on, add a background color and strike out text */
   ul li.checked {
-    background: #888;
+    background: rgba(0, 255, 0, 0.2);
     color: #fff;
     text-decoration: line-through;
   }
