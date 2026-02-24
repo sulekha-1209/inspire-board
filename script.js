@@ -1,214 +1,202 @@
-    const quoteContainer = document.getElementById('quote-container')
-    const quoteContent = document.getElementById('quote-content')
-    const quoteText = document.getElementById('quote')
-    const authorText = document.getElementById('author')
-    const loader = document.getElementById('loader');
-    const clock = document.getElementById('clock-container');
-    const mainTaskInp = document.getElementById('main-task-input');
-    const doneMessageDiv = document.getElementById('doneMessage');
-    let mainTask = '';
+// ── Clock ─────────────────────────────────────────────────────────
+function updateClock() {
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2, '0');
+    const m = String(now.getMinutes()).padStart(2, '0');
+    document.getElementById('clock').textContent = `${h}:${m}`;
 
-    function getTime() {
-        var today = new Date();
-        var h = today.getHours();
-        var m = today.getMinutes();
-        var s = today.getSeconds();
-        // add a zero in front of numbers<10
-        if (m < 10) {
-            m = "0" + m;
-        }
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const months = ['January','February','March','April','May','June',
+                    'July','August','September','October','November','December'];
+    document.getElementById('date-display').textContent =
+        `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`;
+}
+setInterval(updateClock, 1000);
+updateClock();
 
-        clock.innerText = h + ":" + m;
-        var t = setTimeout(getTime, 500);
+// ── Wallpaper via Unsplash API (no-key random) ────────────────────
+// Uses the public /photos/random endpoint – no API key needed for this usage
+const UNSPLASH_COLLECTIONS = ['317099', '1065396', '3694365', '9260386'];
+const PICSUM_FALLBACK = true;
+
+async function loadWallpaper() {
+    try {
+        // Unsplash source replacement: picsum.photos (no deprecated source API needed)
+        // We use a curated nature/landscape aesthetic
+        const seeds = ['mountains', 'nature', 'forest', 'ocean', 'aurora', 'landscape', 'sunrise'];
+        const seed = seeds[Math.floor(Math.random() * seeds.length)];
+        const w = screen.width || 1920;
+        const h = screen.height || 1080;
+        // Picsum with a fixed seed gives a deterministic beautiful photo
+        const imgUrl = `https://picsum.photos/${w}/${h}?random=${Date.now()}`;
+
+        const img = new Image();
+        img.onload = () => {
+            document.getElementById('bg').style.backgroundImage = `url(${imgUrl})`;
+        };
+        img.src = imgUrl;
+
+        // Credit
+        document.getElementById('photo-credit').innerHTML = 'Photo from <a href="https://picsum.photos" target="_blank">Lorem Picsum</a>';
+    } catch (e) {
+        // Fallback gradient
+        document.getElementById('bg').style.background =
+            'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)';
     }
+}
 
+loadWallpaper();
 
+// ── Quote (quotable.io – free, no CORS proxy needed) ──────────────
+async function fetchQuote() {
+    const loader = document.getElementById('quote-loader');
+    const content = document.getElementById('quote-content');
+    loader.classList.remove('hidden');
+    content.classList.add('hidden');
 
-
-    //Get Quote from API
-    async function getQuote() {
-        const proxyURL = 'https://cors-anywhere.herokuapp.com/'
-        apiUrl = "http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json";
-        try {
-            loading();
-            const response = await fetch(proxyURL + apiUrl);
-            const data = await response.json();
-            console.log(data);
-            if (data.quoteAuthor === '') {
-                authorText.innerText = 'Unknown'
-            } else {
-                authorText.innerText = data.quoteAuthor;
-            }
-
-            quoteText.innerText = data.quoteText;
-            loadingComplete();
-        } catch (error) {
-            getQuote();
-            console.log('Oops no quote!' + error);
-
-        }
+    try {
+        const res = await fetch('https://api.quotable.io/quotes/random?minLength=60&maxLength=200');
+        const [data] = await res.json();
+        document.getElementById('quote-text').textContent = `"${data.content}"`;
+        document.getElementById('quote-author').textContent = `— ${data.author}`;
+        loader.classList.add('hidden');
+        content.classList.remove('hidden');
+    } catch (e) {
+        // Fallback quotes if API is unavailable
+        const fallbacks = [
+            { content: "The present moment is the only moment available to us, and it is the door to all moments.", author: "Thich Nhat Hanh" },
+            { content: "You have power over your mind, not outside events. Realize this, and you will find strength.", author: "Marcus Aurelius" },
+            { content: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { content: "In the middle of difficulty lies opportunity.", author: "Albert Einstein" },
+            { content: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt" },
+        ];
+        const q = fallbacks[Math.floor(Math.random() * fallbacks.length)];
+        document.getElementById('quote-text').textContent = `"${q.content}"`;
+        document.getElementById('quote-author').textContent = `— ${q.author}`;
+        loader.classList.add('hidden');
+        content.classList.remove('hidden');
     }
+}
 
-    function tweetQuote() {
-        const quote = quoteText.innerText;
-        const author = authorText.innerText;
-        const twitterApiUrl = `https://twitter.com/intent/tweet?text=${quote} - ${author}`
-        window.open(twitterApiUrl, '_blank')
+function tweetQuote() {
+    const q = document.getElementById('quote-text').textContent;
+    const a = document.getElementById('quote-author').textContent;
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(q + ' ' + a)}`, '_blank');
+}
 
+fetchQuote();
+
+// ── Intention ─────────────────────────────────────────────────────
+function loadIntention() {
+    const saved = localStorage.getItem('inspire-intention');
+    if (saved) {
+        document.getElementById('intention-text').textContent = saved;
+        document.getElementById('intention-input-area').classList.add('hidden');
+        document.getElementById('intention-display').classList.remove('hidden');
+        // Restore checkbox state
+        const done = localStorage.getItem('inspire-intention-done') === 'true';
+        document.getElementById('intention-check').checked = done;
+        if (done) document.getElementById('intention-text').style.textDecoration = 'line-through';
     }
+}
 
-    function loading() {
-        loader.hidden = false;
-        quoteContent.hidden = true;
+function saveIntention() {
+    const val = document.getElementById('intention-input').value.trim();
+    if (!val) return;
+    localStorage.setItem('inspire-intention', val);
+    localStorage.removeItem('inspire-intention-done');
+    document.getElementById('intention-text').textContent = val;
+    document.getElementById('intention-input-area').classList.add('hidden');
+    document.getElementById('intention-display').classList.remove('hidden');
+}
+
+function clearIntention() {
+    localStorage.removeItem('inspire-intention');
+    localStorage.removeItem('inspire-intention-done');
+    document.getElementById('intention-input').value = '';
+    document.getElementById('intention-check').checked = false;
+    document.getElementById('intention-text').style.textDecoration = '';
+    document.getElementById('done-message').classList.remove('visible');
+    document.getElementById('intention-display').classList.add('hidden');
+    document.getElementById('intention-input-area').classList.remove('hidden');
+}
+
+function toggleIntentionDone() {
+    const checked = document.getElementById('intention-check').checked;
+    const text = document.getElementById('intention-text');
+    const msg = document.getElementById('done-message');
+    localStorage.setItem('inspire-intention-done', checked);
+    if (checked) {
+        text.style.textDecoration = 'line-through';
+        msg.classList.add('visible');
+        setTimeout(() => msg.classList.remove('visible'), 3000);
+    } else {
+        text.style.textDecoration = '';
+        msg.classList.remove('visible');
     }
+}
 
-    function loadingComplete() {
-        if (!loader.hidden) {
-            quoteContent.hidden = false;
-            loader.hidden = true;
-        }
-    }
+function showIntentionOpts() {
+    const btn = document.getElementById('intention-remove');
+    btn.classList.remove('hidden');
+    btn.classList.add('visible');
+}
+function hideIntentionOpts() {
+    const btn = document.getElementById('intention-remove');
+    btn.classList.remove('visible');
+    setTimeout(() => btn.classList.add('hidden'), 200);
+}
 
-    // Main Task
+loadIntention();
 
-    function getMainTask() {
-        mainTask = localStorage.getItem('mainTask');
-        if (mainTask && mainTask.length > 0) {
-            // console.log('here coz mainTask is set in local storage', mainTask);
-            showMainTask();
-            document.getElementById('mainTaskText').innerText = mainTask;
-        } else {
-            hideMainTask();
-            mainTaskInp.addEventListener("keyup", function (event) {
-                // Number 13 is the "Enter" key on the keyboard
-                if (event.keyCode === 13) {
-                    // console.log(mainTaskInp.value);
-                    mainTask = mainTaskInp.value;
-                    localStorage.setItem('mainTask', mainTaskInp.value);
-                    // Cancel the default action, if needed
-                    event.preventDefault();
-                    showMainTask();
-                    document.getElementById('mainTaskText').innerText = mainTask;
-                }
-            });
-        }
-    }
+// ── To-do ─────────────────────────────────────────────────────────
+let todos = JSON.parse(localStorage.getItem('inspire-todos') || '[]');
 
-    function showMainTask() {
-        // console.log('task input block being hidden');
-        taskDiv = document.getElementById('task-show');
-        taskDiv.style.display = 'inline-block';
+function saveTodos() {
+    localStorage.setItem('inspire-todos', JSON.stringify(todos));
+}
 
-        taskInp = document.getElementById('task-input');
-        taskInp.style.display = 'none';
-    }
+function renderTodos() {
+    const list = document.getElementById('todo-list');
+    list.innerHTML = '';
+    todos.forEach((todo, i) => {
+        const li = document.createElement('li');
+        if (todo.done) li.classList.add('done');
 
-    function hideMainTask() {
-        // console.log('task show block being hidden');
-        document.getElementById('task-show').style.display = 'none';
-        document.getElementById('task-input').style.display = 'inline-block';
-    }
+        const check = document.createElement('input');
+        check.type = 'checkbox';
+        check.className = 'todo-check';
+        check.checked = todo.done;
+        check.onchange = () => { todos[i].done = check.checked; saveTodos(); renderTodos(); };
 
-    function taskDone() {
-        checked = document.getElementById('taskCheckbox').checked;
-        console.log(checked);
+        const span = document.createElement('span');
+        span.className = 'todo-text';
+        span.textContent = todo.text;
 
-        if (checked) {
-            document.getElementById('mainTaskText').style.textDecoration = 'line-through';
-            doneMessageDiv.classList.add('fade');
-            setTimeout(function () {
-                doneMessageDiv.classList.remove('fade')
-            }, 3000)
+        const close = document.createElement('button');
+        close.className = 'icon-btn small todo-close';
+        close.innerHTML = '<i class="fa fa-times"></i>';
+        close.onclick = (e) => { e.stopPropagation(); todos.splice(i, 1); saveTodos(); renderTodos(); };
 
-        } else {
-            document.getElementById('mainTaskText').style.textDecoration = 'none';
-            doneMessageDiv.classList.remove('fade');
-        }
-    }
-
-    function removeTask() {
-        mainTask = '';
-        localStorage.setItem('mainTask', '');
-        mainTaskInp.value = '';
-        document.getElementById('taskCheckbox').checked = false;
-        document.getElementById('mainTaskText').style.textDecoration = 'none';
-        getMainTask();
-    }
-
-    function showTaskOptions() {
-        document.getElementById('removeTaskDiv').style.display = 'inline-block';
-        document.getElementById('taskCheckboxDiv').style.display = 'inline-block';
-    }
-
-    function hideTaskOptions() {
-        document.getElementById('removeTaskDiv').style.display = 'none';
-        document.getElementById('taskCheckboxDiv').style.display = 'none';
-    }
-
-    // To Do List
-
-    function toggleToDoCardDisplay() {
-        var card = document.getElementById("to-do-card");
-        var button = document.getElementById('to-do-button')
-        if (card.style.display === "none") {
-            card.style.display = "block";
-            button.style.opacity = '1'
-        } else {
-            card.style.display = "none";
-            button.style.opacity = '0.8'
-        }
-    }
-
-    function setToDo() {
-        // Add a "checked" symbol when clicking on a list item
-        var list = document.querySelector('ul');
-        list.addEventListener('click', function (ev) {
-            if (ev.target.tagName === 'LI') {
-                ev.target.classList.toggle('checked');
-            }
-        }, false);
-
-        let todoInp = document.getElementById('new-to-do-inp');
-        todoInp.addEventListener("keyup", function (event) {
-            // Number 13 is the "Enter" key on the keyboard
-            if (event.keyCode === 13) {
-                // console.log(mainTaskInp.value);
-                newToDo();
-            }
-        });
-    }
-
-    function newToDo() {
-        var close = document.getElementsByClassName("close");
-        var li = document.createElement("li");
-        var inputValue = document.getElementById("new-to-do-inp").value;
-        var t = document.createTextNode(inputValue);
-        li.appendChild(t);
-        if (inputValue === '') {
-            alert("You must write something!");
-        } else {
-            document.getElementById("to-do-list").appendChild(li);
-        }
-        document.getElementById("new-to-do-inp").value = "";
-
-        var span = document.createElement("SPAN");
-        var txt = document.createTextNode("\u00D7");
-        span.className = "close";
-        span.appendChild(txt);
+        li.appendChild(check);
         li.appendChild(span);
+        li.appendChild(close);
+        list.appendChild(li);
+    });
+}
 
-        for (i = 0; i < close.length; i++) {
-            close[i].onclick = function () {
-                var div = this.parentElement;
-                div.style.display = "none";
-            }
-        }
+function addTodo() {
+    const input = document.getElementById('todo-input');
+    const val = input.value.trim();
+    if (!val) return;
+    todos.unshift({ text: val, done: false });
+    saveTodos();
+    renderTodos();
+    input.value = '';
+}
 
-    }
+function toggleTodo() {
+    document.getElementById('todo-panel').classList.toggle('hidden');
+}
 
-
-    // On Load
-    getTime();
-    getQuote();
-    getMainTask();
-    setToDo();
+renderTodos();

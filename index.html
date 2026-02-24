@@ -1,126 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quote Generator</title>
-    <link rel="icon" type="image/png" href="https://www.google.com/s2/u/0/favicons?domain=jacinto.design
-    ">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <title>Inspire Board</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-
 </head>
+<body>
+    <div id="bg" class="bg"></div>
+    <div class="bg-overlay"></div>
 
-<body onload="getTime()">
-    <div class="container">
-        <div class="row header-section">
-            <div class="bookmark-section" style="display: none;">
-                <div class="padding-small">Links</div>
-            </div>
-            <div class="to-do-section">
-                <div id="to-do-button" class="to-do-button padding-small" onclick="toggleToDoCardDisplay()"> Todo </div>
-                <div id="to-do-card" class="to-do-card" style="display: none;">
-                    <div style="display: flex;">
-                        <input id="new-to-do-inp" type="text" placeholder="New Todo">
-                        <i class="fa fa-plus" aria-hidden="true" style="margin: auto;" onclick="newToDo()"></i>
-                    </div>
-
-                    <ul class="to-do-list" id="to-do-list">
-                        <h4>Todo</h4>
-                    </ul>
-                </div>
-            </div>
+    <header class="header">
+        <div class="header-left">
+            <span class="app-name">inspire</span>
         </div>
-        <div class="row content">
-            <div class="row clock-section">
-                <div style="margin: auto;">
-                    <div class="clock-container" id="clock-container"></div>
-                    <div class="mantra-text">Your potential is unlimited.</div>
-                </div>
-
-            </div>
-
-            <div class="row do-today-section">
-                <div id="task-input" class="task-input">
-                    <div>What is your main focus for today?</div>
-                    <input autocomplete="off" autofill="off" type="text" id="main-task-input"
-                        class="main-task-input"><br>
-                    <!--<button id="button" ></button> -->
-                </div>
-                <div class="task" id="task-show">
-                    <div onMouseOver="showTaskOptions()" onMouseOut="hideTaskOptions()">
-                        <b>TODAY</b>
-                        <div class="row" style="display: flex;" id='mainTask'>
-                            <div style="margin: auto; display: flex;">
-                                <div class="padding-small taskCheckboxDiv" id="taskCheckboxDiv">
-                                    <input id="taskCheckbox" class="taskCheckbox" onclick="taskDone()" type="checkbox">
-                                </div>
-                                <div class="padding-small mainTaskText" id='mainTaskText'></div>
-                                <div class="padding-small removeTaskDiv" id="removeTaskDiv">
-                                    <i style="font-size:2rem;" onclick="removeTask()"
-                                        class="far fa-times-circle removeTaskIcon"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" id="doneMessage">
-                            Celebrate!
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row quote-section">
-                <div style="margin: auto;">
-                    <div class="quote-container" id="quote-container">
-                        <div id="quote-content" class="quote-content">
-                            <!--Quote-->
-                            <div class="quote-text">
-
-                                <span id="quote"> </span>
-
-                            </div>
-                            <!--Author-->
-                            <div class="quote-author">
-                                <span id="author"></span>
-                            </div>
-                            <!---->
-                        </div>
-                        <div id="button-container" class="button-container">
-
-                            <i onclick="tweetQuote()" class="twitter-button fab fa-twitter"></i>
-                            <i onclick="getQuote()" class="generate-button fas fa-sync"></i>
-
-                        </div>
-                        <!--Loader-->
-                        <div class="row" style="display: flex;">
-                            <div class="col-md-4 col-sm-4 col-xs-4 loader" id="loader"></div>
-                        </div>
-
-                    </div>
-                </div>
-
-
-
-            </div>
-
-
-
-
+        <div class="header-right">
+            <button class="icon-btn" id="todo-toggle" onclick="toggleTodo()" title="To-do list">
+                <i class="fa fa-list-ul"></i>
+            </button>
         </div>
+    </header>
 
-
+    <div id="todo-panel" class="todo-panel hidden">
+        <div class="todo-header">
+            <span>Tasks</span>
+            <button class="icon-btn small" onclick="toggleTodo()"><i class="fa fa-times"></i></button>
+        </div>
+        <div class="todo-input-row">
+            <input id="todo-input" type="text" placeholder="Add a task…" onkeydown="if(event.key==='Enter') addTodo()">
+            <button class="icon-btn small" onclick="addTodo()"><i class="fa fa-plus"></i></button>
+        </div>
+        <ul id="todo-list"></ul>
     </div>
 
+    <main class="main">
+        <div class="clock-block">
+            <div class="clock" id="clock"></div>
+            <div class="date" id="date-display"></div>
+        </div>
 
+        <div class="intention-block">
+            <div id="intention-input-area" class="intention-input-area">
+                <p class="intention-prompt">What is your intention for today?</p>
+                <input id="intention-input" type="text" autocomplete="off" placeholder="Type and press Enter…"
+                    onkeydown="if(event.key==='Enter') saveIntention()">
+            </div>
+            <div id="intention-display" class="intention-display hidden">
+                <span class="intention-label">TODAY</span>
+                <div class="intention-row" onmouseenter="showIntentionOpts()" onmouseleave="hideIntentionOpts()">
+                    <input type="checkbox" id="intention-check" class="intention-check" onchange="toggleIntentionDone()">
+                    <span id="intention-text" class="intention-text"></span>
+                    <button class="icon-btn small intention-remove hidden" id="intention-remove" onclick="clearIntention()">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div id="done-message" class="done-message">✦ Wonderful! ✦</div>
+            </div>
+        </div>
 
+        <div class="quote-block">
+            <div id="quote-loader" class="quote-loader">
+                <div class="spinner"></div>
+            </div>
+            <div id="quote-content" class="quote-content hidden">
+                <p id="quote-text" class="quote-text"></p>
+                <p id="quote-author" class="quote-author"></p>
+                <div class="quote-actions">
+                    <button class="icon-btn" onclick="tweetQuote()" title="Share on X/Twitter"><i class="fab fa-x-twitter"></i></button>
+                    <button class="icon-btn" onclick="fetchQuote()" title="New quote"><i class="fas fa-rotate-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </main>
 
+    <div class="photo-credit" id="photo-credit"></div>
 
-    <!-- Scripts -->
     <script src="script.js"></script>
 </body>
-
 </html>

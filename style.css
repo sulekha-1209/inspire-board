@@ -1,385 +1,230 @@
-html,
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --white: rgba(255,255,255,0.95);
+    --white-dim: rgba(255,255,255,0.55);
+    --white-faint: rgba(255,255,255,0.15);
+    --glass: rgba(0,0,0,0.25);
+    --radius: 12px;
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'DM Sans', system-ui, sans-serif;
+}
+
 body {
-    box-sizing: border-box;
-    color: white;
-    background-color: black;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, .2)), url("https://source.unsplash.com/collection/17315172");
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
+    height: 100vh; width: 100vw; overflow: hidden;
+    font-family: var(--font-sans);
+    color: var(--white);
+}
+
+/* ── Background ─────────────────────────────────── */
+.bg {
+    position: fixed; inset: 0; z-index: 0;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    position: fixed;
-    z-index: -1;
-    margin: 0;
-    height: 100vh;
-    width: 100vw;
-    overflow-x: hidden;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #1a1a2e;
+    transition: background-image 1.5s ease;
+}
+.bg-overlay {
+    position: fixed; inset: 0; z-index: 1;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.35) 0%,
+        rgba(0,0,0,0.10) 40%,
+        rgba(0,0,0,0.10) 60%,
+        rgba(0,0,0,0.50) 100%
+    );
 }
 
-input {
-    border: none;
-    outline: none;
-    background: transparent;
+/* ── Header ─────────────────────────────────────── */
+.header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 2rem;
 }
-
-.container {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-
-}
-
-.header-section {
-    height: 10vh;
-    display: flex;
-    padding-top: 1vh;
-}
-
-
-.content {
-    height: 90vh;
-    text-align: center;
-
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-}
-
-.padding-small {
-    padding: 1rem;
-}
-
-/* Bookmarks */
-.bookmark-section {}
-
-/* To do list */
-.to-do-section {
-    margin-left: auto;
-
-}
-
-.to-do-button {
-    text-align: right;
-    opacity: 0.8;
-}
-
-.to-do-button:hover {
-    opacity: 1;
-    cursor: pointer;
-}
-
-.to-do-card {
-    max-height: 80vh;
-    overflow: auto;
-    padding: 2rem;
-    width: 20vw;
-    background-color: rgba(255, 255, 255, 0.75);
-    border-radius: 5px;
-    color:#222;
-}
-
-#new-to-do-inp {
-    width: 90%;
-    border-bottom: 1px #A9A9A9 solid;
-    padding-bottom: 1vh;
-}
-
-.to-do-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0.5rem;
-}
-
-/* Style the list items */
-ul li {
-    cursor: pointer;
-    position: relative;
-    margin: 0.5rem;
-    padding: 0.5rem 0.5rem 0.5rem 1vw;
-    background: #eee;
-    transition: 0.2s;
-  
-    /* make the list items unselectable */
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  
-  /* Set all odd list items to a different color (zebra-stripes) */
-  ul li:nth-child(odd) {
-    background: #f9f9f9;
-  }
-  
-  /* Darker background-color on hover */
-  ul li:hover {
-    background: #ddd;
-  }
-  
-  /* When clicked on, add a background color and strike out text */
-  ul li.checked {
-    background: #888;
-    color: #fff;
-    text-decoration: line-through;
-  }
-  
-  /* Add a "checked" mark when clicked on */
- /* ul li.checked::before {
-    content: '';
-    position: absolute;
-    border-color: #fff;
-    border-style: solid;
-    border-width: 0 2px 2px 0;
-    top: 10px;
-    left: 16px;
-    transform: rotate(45deg);
-    height: 15px;
-    width: 7px;
-  } */
-  
-  /* Style the close button */
-  .close {
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 0.5rem;
-  }
-  
-  .close:hover {
-    color: rgba(255, 0, 0, 0.9);
-  }
-  
-
-
-/* Clock */
-
-.clock-section {
-    display: flex;
-    margin-top: auto;
-}
-
-.clock-container {
-    text-align: center;
-    margin-bottom: -30px;
-    font-size: 13rem;
-}
-
-.mantra-text {
-    font-size: 4.5rem;
-}
-
-/* To do today section */
-.do-today-section {
-    display: flex;
-    font-size: 3rem;
-    margin-top: 20px;
-}
-
-
-.task-input {
-    margin: auto;
-}
-
-.main-task-input {
-    text-align: center;
-    width: 85%;
-    font-size: 2.5rem;
-
-    border-bottom: 2px solid;
-}
-
-.task {
-    margin: auto;
-    width: 100%;
-    display: none;
-    padding-top: 1.5rem;
-    margin-bottom: -3rem;
-    font-size: 2.5rem
-}
-
-
-.taskCheckboxDiv {
-    display: none;
-}
-
-.taskCheckbox {
-    opacity: 70%;
-}
-
-.taskCheckbox:hover {
-    opacity: 100%;
-}
-
-.removeTaskIcon {
-    opacity: 70%;
-}
-
-.removeTaskIcon:hover {
-    opacity: 100%;
-}
-
-.removeTaskDiv {
-    display: none;
-}
-
-
-/* .mainTaskText:hover + .removeTaskDiv, .removeTaskDiv:hover{
-    display: inline-block;
-} */
-
-#doneMessage {
-    font-size: 1.75rem;
-    opacity: 0;
-    transition: opacity 1s;
-}
-
-#doneMessage.fade {
-    opacity: 1;
-}
-
-
-
-/* Quote */
-
-.quote-section {
-    display: flex;
-    margin-top: auto;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-}
-
-.quote-container {
-    padding: 1.5rem;
-    margin: auto;
-    width: auto;
-    text-align: center;
-    width: 100%;
-    max-width: 900px;
-
-    /* border-radius: 10px;
-    background-color: rgba(0, 0, 0, .3);
-    box-shadow: 0 5px 5px 5px rgba(255, 255, 255, 0.2); */
-}
-
-.quote-content {
-    padding-top: 1rem;
-}
-
-.quote-text {
-    /*font-size: 1.5rem;*/
-}
-
-.quote-author {
-    font-style: italic;
-
-}
-
-.long-quote {
-    font-size: 1rem
-}
-
-.quote-content:hover+.button-container,
-.button-container:hover {
-    display: inline-block;
-}
-
-
-/* Buttons */
-.button-container {
-    width: 100%;
-    padding-top: 5px;
-    display: none;
-}
-
-.twitter-button {
-    opacity: 0.8;
-    padding: 2px;
-}
-
-.twitter-button:hover {
-    color: #38a1f3;
-}
-
-.generate-button {
+.app-name {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: lowercase;
     opacity: 0.7;
-    padding: 2px;
-    ;
+}
+.header-right { display: flex; gap: 0.5rem; }
+
+/* ── Icon buttons ────────────────────────────────── */
+.icon-btn {
+    background: none; border: none; cursor: pointer;
+    color: var(--white); opacity: 0.6;
+    font-size: 1rem; padding: 0.4rem 0.5rem;
+    border-radius: 6px; transition: opacity 0.2s, background 0.2s;
+}
+.icon-btn:hover { opacity: 1; background: var(--white-faint); }
+.icon-btn.small { font-size: 0.85rem; }
+
+/* ── To-do panel ─────────────────────────────────── */
+.todo-panel {
+    position: fixed; top: 0; right: 0; bottom: 0; z-index: 20;
+    width: min(320px, 90vw);
+    background: rgba(10,10,20,0.82);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-left: 1px solid var(--white-faint);
+    display: flex; flex-direction: column;
+    padding: 1.5rem;
+    gap: 1rem;
+    transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+.todo-panel.hidden { transform: translateX(100%); }
+.todo-header {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase;
+    opacity: 0.7;
+}
+.todo-input-row {
+    display: flex; gap: 0.5rem; align-items: center;
+    border-bottom: 1px solid var(--white-faint);
+    padding-bottom: 1rem;
+}
+#todo-input {
+    flex: 1; background: none; border: none; outline: none;
+    color: var(--white); font-family: var(--font-sans);
+    font-size: 0.9rem; font-weight: 300;
+}
+#todo-input::placeholder { color: var(--white-dim); }
+#todo-list {
+    list-style: none; flex: 1; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 0.25rem;
+}
+#todo-list li {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.6rem 0.5rem; border-radius: 6px;
+    font-size: 0.9rem; font-weight: 300;
+    cursor: pointer; transition: background 0.15s;
+    position: relative;
+}
+#todo-list li:hover { background: var(--white-faint); }
+#todo-list li.done span.todo-text { text-decoration: line-through; opacity: 0.4; }
+#todo-list li .todo-close {
+    margin-left: auto; opacity: 0; font-size: 0.7rem;
+    transition: opacity 0.15s;
+}
+#todo-list li:hover .todo-close { opacity: 0.6; }
+#todo-list li .todo-close:hover { opacity: 1; }
+#todo-list .todo-check { accent-color: white; width: 14px; height: 14px; cursor: pointer; }
+
+/* ── Main ────────────────────────────────────────── */
+.main {
+    position: relative; z-index: 5;
+    height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 2.5rem;
+    padding: 5rem 2rem 3rem;
+    text-align: center;
 }
 
-.generate-button:hover {
-    opacity: 1;
-    color: white;
+/* ── Clock ───────────────────────────────────────── */
+.clock-block { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; }
+.clock {
+    font-family: var(--font-serif);
+    font-size: clamp(6rem, 18vw, 12rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+.date {
+    font-size: 0.8rem; font-weight: 200;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    opacity: 0.6;
 }
 
+/* ── Intention ───────────────────────────────────── */
+.intention-block { width: 100%; max-width: 640px; }
+.intention-input-area { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+.intention-prompt {
+    font-size: 0.75rem; letter-spacing: 0.18em;
+    text-transform: uppercase; opacity: 0.55; font-weight: 300;
+}
+#intention-input {
+    background: none; border: none; border-bottom: 1px solid var(--white-faint);
+    outline: none; color: var(--white);
+    font-family: var(--font-serif); font-size: 1.8rem; font-weight: 300;
+    text-align: center; width: 100%; padding: 0.25rem 0 0.5rem;
+    transition: border-color 0.2s;
+}
+#intention-input::placeholder { color: var(--white-dim); }
+#intention-input:focus { border-bottom-color: var(--white-dim); }
 
+.intention-display { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+.intention-display.hidden { display: none; }
+.intention-label {
+    font-size: 0.65rem; letter-spacing: 0.25em;
+    text-transform: uppercase; opacity: 0.45; font-weight: 300;
+}
+.intention-row {
+    display: flex; align-items: center; gap: 1rem;
+}
+.intention-check { accent-color: white; width: 16px; height: 16px; cursor: pointer; }
+.intention-text {
+    font-family: var(--font-serif); font-size: 2rem; font-weight: 300;
+}
+.intention-check:checked ~ .intention-text { text-decoration: line-through; opacity: 0.5; }
+.intention-remove { opacity: 0; transition: opacity 0.2s; }
+.intention-remove.visible { opacity: 0.6; }
+.intention-remove.visible:hover { opacity: 1; }
+.done-message {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: 1rem; opacity: 0;
+    transition: opacity 0.8s ease;
+    letter-spacing: 0.1em;
+}
+.done-message.visible { opacity: 0.8; }
 
+/* ── Quote ───────────────────────────────────────── */
+.quote-block { width: 100%; max-width: 700px; min-height: 6rem; display: flex; align-items: center; justify-content: center; }
+.quote-loader { display: flex; align-items: center; justify-content: center; }
+.quote-content { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+.quote-content.hidden { display: none; }
+.quote-text {
+    font-family: var(--font-serif); font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-weight: 300; line-height: 1.6;
+    opacity: 0.9;
+}
+.quote-author {
+    font-size: 0.75rem; letter-spacing: 0.15em;
+    text-transform: uppercase; opacity: 0.5; font-weight: 300;
+}
+.quote-actions {
+    display: none; gap: 0.25rem; margin-top: 0.25rem;
+}
+.quote-block:hover .quote-actions { display: flex; }
 
-/* Loader */
-.loader {
-    margin: auto;
-    border: 5px solid #f3f3f3;
-    /* Light grey */
-    border-top: 5px solid #555;
+/* Spinner */
+.spinner {
+    width: 28px; height: 28px;
+    border: 2px solid var(--white-faint);
+    border-top-color: var(--white-dim);
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 2s linear infinite;
+    animation: spin 0.8s linear infinite;
 }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
+/* ── Photo credit ────────────────────────────────── */
+.photo-credit {
+    position: fixed; bottom: 1rem; left: 1.5rem; z-index: 5;
+    font-size: 0.65rem; opacity: 0.35;
+    font-weight: 300; letter-spacing: 0.05em;
 }
+.photo-credit a { color: inherit; text-decoration: none; }
+.photo-credit a:hover { opacity: 1; text-decoration: underline; }
 
-/* Media queries */
+/* ── Hidden utility ──────────────────────────────── */
+.hidden { display: none !important; }
 
-/* If the screen size is 993px wide or more */
-@media screen and (min-width: 993px) {
-    .clock-container {
-        font-size: 13rem;
-    }
-    .clock-section {
-        padding-top: 15vh;
-    }
-
-}
-
-/* If the screen size is 992px wide or less */
-@media screen and (max-width: 992px) {
-    .content {
-        height: 70vh;
-    }
-
-    .clock-container {
-        font-size: 9rem;
-        margin-bottom: -12px;
-    }
-
-    .mantra-text {
-        font-size: 2.5rem;
-    }
-
-    .do-today-section {
-        font-size: 2rem;
-    }
-}
-
-/* If the screen size is 772px wide or less */
-@media screen and (max-width: 772px) {
-    .to-do-section {
-        display: none
-    }
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 600px) {
+    .clock { font-size: clamp(5rem, 22vw, 7rem); }
+    .intention-text { font-size: 1.5rem; }
+    .main { gap: 1.75rem; padding-top: 4.5rem; }
 }
